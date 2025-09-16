@@ -1,5 +1,5 @@
-﻿FROM mcr.microsoft.com/dotnet/aspnet:8.0
-EXPOSE 8080
+﻿FROM mcr.microsoft.com/dotnet/aspnet:8.0-alpine
+
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0
 WORKDIR /src
@@ -9,8 +9,7 @@ COPY . .
 WORKDIR "/src/WebApp"
 RUN dotnet build "WebApp.csproj" -o /build
 
-RUN dotnet publish "WebApp.csproj"
+RUN dotnet publish "WebApp.csproj" -o /publish
 
-WORKDIR /src
-COPY  . .
-ENTRYPOINT ["dotnet", "WebApp.dll"]
+EXPOSE 8080
+ENTRYPOINT ["dotnet", "/publish/WebApp.dll"]
