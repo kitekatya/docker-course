@@ -9,7 +9,8 @@ COPY . .
 WORKDIR "/src/WebApp"
 RUN dotnet build "WebApp.csproj" -o /build
 
-RUN dotnet publish "WebApp.csproj" -o /publish
+RUN dotnet publish "WebApp.csproj"
 
-COPY  /publish .
+WORKDIR /src
+COPY  . .
 ENTRYPOINT ["dotnet", "WebApp.dll"]
